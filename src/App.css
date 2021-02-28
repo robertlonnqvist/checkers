@@ -33,9 +33,17 @@
   background-color: red;
 }
 
+.App-player2 {
+  background-color: darkred;
+}
+
 .App-player3 {
   color: white;
-  background-color: black;
+  background-color: blue;
+}
+
+.App-player4 {
+  background-color: darkblue;
 }
 
 .App-active::after {
