@@ -38,67 +38,60 @@ function App() {
       prop: BoardProp,
       expected: BoardProp | null = null
     ) => {
-      if (index < board.length - 1) {
-        if (expected === null || board[index] === expected) {
-          board[index] = prop;
-        }
+      if (
+        index < board.length - 1 &&
+        (expected === null || board[index] === expected)
+      ) {
+        board[index] = prop;
       }
     };
 
     const isPlayerTurn = (cell: BoardProp) => {
-      switch (turn) {
-        case Turn.ONE:
-          return cell === BoardProp.ONE_QUEEN || cell === BoardProp.ONE_KING;
-        case Turn.TWO:
-          return cell === BoardProp.TWO_QUEEN || cell === BoardProp.TWO_KING;
+      if (turn === Turn.ONE) {
+        return cell === BoardProp.ONE_QUEEN || cell === BoardProp.ONE_KING;
       }
+      return cell === BoardProp.TWO_QUEEN || cell === BoardProp.TWO_KING;
     };
 
     const isOtherPlayer = (cell: BoardProp) => {
-      switch (turn) {
-        case Turn.ONE:
-          return cell === BoardProp.TWO_QUEEN || cell === BoardProp.TWO_KING;
-        case Turn.TWO:
-          return cell === BoardProp.ONE_QUEEN || cell === BoardProp.ONE_KING;
+      if (turn === Turn.ONE) {
+        return cell === BoardProp.TWO_QUEEN || cell === BoardProp.TWO_KING;
       }
+      return cell === BoardProp.ONE_QUEEN || cell === BoardProp.ONE_KING;
     };
 
     const isNotEdge = (index: number, x: PossibleMove) => {
-      switch (turn) {
-        case Turn.ONE:
-          return (
-            (x === 7 && index % 8 !== 0) ||
-            (x === 9 && index % 8 !== 7) ||
-            (x === -9 && index % 8 !== 0) ||
-            (x === -7 && index % 8 !== 7)
-          );
-        case Turn.TWO:
-          return (
-            (x === 9 && index % 8 !== 0) ||
-            (x === 7 && index % 8 !== 7) ||
-            (x === -7 && index % 8 !== 0) ||
-            (x === -9 && index % 8 !== 7)
-          );
+      if (turn === Turn.ONE) {
+        return (
+          (x === 7 && index % 8 !== 0) ||
+          (x === 9 && index % 8 !== 7) ||
+          (x === -9 && index % 8 !== 0) ||
+          (x === -7 && index % 8 !== 7)
+        );
       }
+      return (
+        (x === 9 && index % 8 !== 0) ||
+        (x === 7 && index % 8 !== 7) ||
+        (x === -7 && index % 8 !== 0) ||
+        (x === -9 && index % 8 !== 7)
+      );
     };
 
     const isNotJumpEdge = (index: number, x: PossibleMove) => {
-      switch (turn) {
-        case Turn.ONE:
-          return (
-            (x === 7 && index % 8 !== 0 && index % 8 !== 1) ||
-            (x === 9 && index % 8 !== 7 && index % 8 !== 6) ||
-            (x === -9 && index % 8 !== 0 && index % 8 !== 1) ||
-            (x === -7 && index % 8 !== 7 && index % 8 !== 6)
-          );
-        case Turn.TWO:
-          return (
-            (x === 9 && index % 8 !== 0 && index % 8 !== 1) ||
-            (x === 7 && index % 8 !== 7 && index % 8 !== 6) ||
-            (x === -7 && index % 8 !== 0 && index % 8 !== 1) ||
-            (x === -9 && index % 8 !== 7 && index % 8 !== 6)
-          );
+      if (turn === Turn.ONE) {
+        return (
+          (x === 7 && index % 8 !== 0 && index % 8 !== 1) ||
+          (x === 9 && index % 8 !== 7 && index % 8 !== 6) ||
+          (x === -9 && index % 8 !== 0 && index % 8 !== 1) ||
+          (x === -7 && index % 8 !== 7 && index % 8 !== 6)
+        );
       }
+      return (
+        (x === 9 && index % 8 !== 0 && index % 8 !== 1) ||
+        (x === 7 && index % 8 !== 7 && index % 8 !== 6) ||
+        (x === -7 && index % 8 !== 0 && index % 8 !== 1) ||
+        (x === -9 && index % 8 !== 7 && index % 8 !== 6)
+      );
     };
     const resetSuggestions = () => {
       for (const key in board) {
